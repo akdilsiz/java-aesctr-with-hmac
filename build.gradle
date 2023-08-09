@@ -2,7 +2,6 @@ plugins {
     id("java")
     id("java-library")
     id("maven-publish")
-    id("signing")
 }
 
 group = "org.akdilsiz"
@@ -58,12 +57,18 @@ publishing {
             }
         }
     }
-}
 
-signing {
-    sign publishing.publications.maven
-}
+    repositories {
+        maven {
+            credentials {
+                username = "$usr"
+                password = "$pwd"
+            }
 
+            url = "https://tecpor.jetbrains.space/p/main/repositories/java-aesctr-with-hmac"
+        }
+    }
+}
 
 javadoc {
     if(JavaVersion.current().isJava9Compatible()) {
